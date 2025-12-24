@@ -1,0 +1,15 @@
+.gradle/
+build/
+run/
+.fabric/
+loom-cache/
+**/minecraftMaven/
+**/*.jar
+
+.idea/
+.vscode/
+*.iml
+
+*.log
+.DS_Store
+Thumbs.db

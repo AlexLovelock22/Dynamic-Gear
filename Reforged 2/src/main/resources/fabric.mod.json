@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "reforged_2",
+  "version": "${version}",
+  "name": "Reforged 2",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/reforged_2/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "org.AlexLovelock.reforged_2.client.Reforged_2DataGenerator"
+    ],
+    "client": [
+      "org.AlexLovelock.reforged_2.client.Reforged_2Client"
+    ],
+    "main": [
+      "org.AlexLovelock.reforged_2.Reforged_2"
+    ]
+  },
+  "mixins": [
+    "reforged_2.mixins.json",
+    {
+      "config": "reforged_2.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
