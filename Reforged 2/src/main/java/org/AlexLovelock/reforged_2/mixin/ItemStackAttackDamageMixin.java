@@ -30,15 +30,21 @@ public abstract class ItemStackAttackDamageMixin {
             ItemStack stack = attacker.getMainHandStack();
 
             if (!stack.isEmpty()) {
-                int pct = RarityHelper.getDamageRollPct(stack);
 
-                System.out.println("[Reforged] Damage roll pct = " + pct);
+                int rarityPct = RarityHelper.getDamageRollPct(stack);
+                int prefixPct = RarityHelper.getPrefixDamagePct(stack);
 
-                float multiplier = 1.0f + (pct / 100.0f);
+                int totalPct = rarityPct + prefixPct;
+
+                float multiplier = 1.0f + (totalPct / 100.0f);
                 float newAmount = amount * multiplier;
 
                 System.out.println(
-                        "[Reforged] Damage modified: " + amount + " -> " + newAmount
+                        "[Reforged][Damage] base=" + amount +
+                                " rarity=" + rarityPct +
+                                "% prefix=" + prefixPct +
+                                "% total=" + totalPct +
+                                "% final=" + newAmount
                 );
 
                 return newAmount;

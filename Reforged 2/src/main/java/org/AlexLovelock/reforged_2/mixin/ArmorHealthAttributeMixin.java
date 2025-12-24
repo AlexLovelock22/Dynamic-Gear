@@ -28,19 +28,18 @@ public abstract class ArmorHealthAttributeMixin {
 
         if (!entity.isPlayer()) return;
 
-        System.out.println("[Reforged][Armor] Tick running");
 
         EntityAttributeInstance attr =
                 entity.getAttributeInstance(EntityAttributes.MAX_HEALTH);
 
         if (attr == null) {
-            System.out.println("[Reforged][Armor] MAX_HEALTH attribute missing");
+
             return;
         }
 
         EntityAttributeModifier existing = attr.getModifier(ARMOR_HEALTH_ID);
         if (existing != null) {
-            System.out.println("[Reforged][Armor] Removing existing modifier");
+
             attr.removeModifier(existing);
         }
 
@@ -51,28 +50,20 @@ public abstract class ArmorHealthAttributeMixin {
 
             ItemStack stack = entity.getEquippedStack(slot);
 
-            if (stack.isEmpty()) {
-                System.out.println("[Reforged][Armor] Slot " + slot + " empty");
-                continue;
-            }
+
 
             Integer bonus = stack.get(RarityComponents.MAX_HEALTH);
 
-            System.out.println(
-                    "[Reforged][Armor] Slot " + slot +
-                            " item=" + stack.getItem() +
-                            " MAX_HEALTH=" + bonus
-            );
+
 
             if (bonus != null) {
                 totalBonus += bonus;
             }
         }
 
-        System.out.println("[Reforged][Armor] Total bonus = " + totalBonus);
 
         if (totalBonus > 0) {
-            System.out.println("[Reforged][Armor] Applying modifier +" + totalBonus);
+
 
             attr.addPersistentModifier(
                     new EntityAttributeModifier(
@@ -82,7 +73,7 @@ public abstract class ArmorHealthAttributeMixin {
                     )
             );
         } else {
-            System.out.println("[Reforged][Armor] No bonus to apply");
+
         }
     }
 }

@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import org.AlexLovelock.reforged_2.prefix.PrefixDefinition;
+import org.AlexLovelock.reforged_2.prefix.PrefixRegistry;
 import org.AlexLovelock.reforged_2.rarity.Rarity;
 import org.AlexLovelock.reforged_2.rarity.RarityComponents;
 import org.AlexLovelock.reforged_2.rarity.RarityHelper;
@@ -24,7 +26,7 @@ public abstract class ItemStackTooltipMixin {
             method = "appendTooltip",
             at = @At("TAIL")
     )
-    private void reforged2$appendRarityTooltip(
+    private void reforged2$appendCustomTooltips(
             Item.TooltipContext context,
             TooltipDisplayComponent display,
             PlayerEntity player,
@@ -34,6 +36,33 @@ public abstract class ItemStackTooltipMixin {
     ) {
         ItemStack stack = (ItemStack) (Object) this;
 
+        // ---------- PREFIX TOOLTIP ----------
+        String prefixId = stack.get(RarityComponents.PREFIX);
+        if (prefixId != null) {
+            PrefixDefinition prefix = PrefixRegistry.get(prefixId);
+            if (prefix != null) {
+                textConsumer.accept(Text.empty());
+
+                // Prefix name
+                textConsumer.accept(
+                        Text.literal(prefix.displayName())
+                                .formatted(Formatting.GOLD)
+                );
+
+                // Prefix effects (JSON-driven)
+                if (prefix.damagePct() != 0) {
+                    textConsumer.accept(
+                            Text.literal(formatPct(prefix.damagePct()) + " Damage")
+                                    .formatted(Formatting.GRAY)
+                    );
+                }
+
+                // Future-proof: add more here later
+                // reach, speed, movement, crit chance, etc
+            }
+        }
+
+        // ---------- RARITY TOOLTIP ----------
         if (!RarityHelper.hasRarity(stack)) return;
 
         Rarity rarity = RarityHelper.getRarity(stack);
@@ -57,7 +86,6 @@ public abstract class ItemStackTooltipMixin {
                         .formatted(Formatting.GRAY)
         );
 
-        // Weapon / tool stat
         if (miningSpeed != null) {
             textConsumer.accept(
                     Text.literal("Mining Speed: " + formatPct(miningSpeed))
@@ -70,7 +98,6 @@ public abstract class ItemStackTooltipMixin {
             );
         }
 
-        // Armor stat (always show, even +0)
         if (maxHealth != null) {
             textConsumer.accept(
                     Text.literal("Max Health: +" + maxHealth)

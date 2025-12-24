@@ -3,6 +3,8 @@ package org.AlexLovelock.reforged_2.rarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.random.Random;
+import org.AlexLovelock.reforged_2.prefix.PrefixDefinition;
+import org.AlexLovelock.reforged_2.prefix.PrefixRegistry;
 
 
 public final class RarityHelper {
@@ -86,17 +88,37 @@ public final class RarityHelper {
     }
 
     public static void assignRarityIfMissing(ItemStack stack, Random random) {
+
+        System.out.println(
+                "[Reforged][Rarity] assignRarityIfMissing called for "
+                        + stack.getItem()
+        );
+
         boolean armor = isArmor(stack);
 
-        if (hasRarity(stack) && !armor) return;
+        if (hasRarity(stack) && !armor) {
+            System.out.println("[Reforged][Rarity] Already has rarity, skipping");
+            return;
+        }
 
         boolean sword = isSword(stack);
         boolean axe = isAxe(stack);
         boolean tool = isTool(stack);
 
-        if (!sword && !axe && !tool && !armor) return;
+        System.out.println(
+                "[Reforged][Rarity] Type check -> sword=" + sword
+                        + " axe=" + axe
+                        + " tool=" + tool
+                        + " armor=" + armor
+        );
+
+        if (!sword && !axe && !tool && !armor) {
+            System.out.println("[Reforged][Rarity] Unsupported item, skipping");
+            return;
+        }
 
         Rarity rarity = rollRarity(random);
+        System.out.println("[Reforged][Rarity] Rolled rarity = " + rarity);
 
         int durabilityPct = roll(
                 RarityRanges.getSwordDurabilityMin(rarity),
@@ -109,6 +131,10 @@ public final class RarityHelper {
             int maxHealth =
                     (rarity == Rarity.EPIC || rarity == Rarity.LEGENDARY) ? 1 : 0;
 
+            System.out.println(
+                    "[Reforged][Armor] Applying armor rarity. maxHealth=" + maxHealth
+            );
+
             stack.set(RarityComponents.RARITY, rarity.name());
             stack.set(RarityComponents.DURABILITY_PCT, durabilityPct);
             stack.set(RarityComponents.MAX_HEALTH, maxHealth);
@@ -117,7 +143,12 @@ public final class RarityHelper {
 
         // AXE (50/50)
         if (axe) {
-            if (random.nextBoolean()) {
+            boolean treatAsWeapon = random.nextBoolean();
+            System.out.println(
+                    "[Reforged][Axe] Treat as weapon = " + treatAsWeapon
+            );
+
+            if (treatAsWeapon) {
                 int damagePct = roll(
                         RarityRanges.getSwordDamageMin(rarity),
                         RarityRanges.getSwordDamageMax(rarity),
@@ -152,10 +183,43 @@ public final class RarityHelper {
             stack.set(RarityComponents.MINING_SPEED_PCT, miningSpeedPct);
         }
 
+        // COMMON DATA
         stack.set(RarityComponents.RARITY, rarity.name());
         stack.set(RarityComponents.DURABILITY_PCT, durabilityPct);
+
+        // PREFIX (weapons only)
+        if ((sword || axe) && random.nextBoolean()) {
+
+            PrefixDefinition prefix = PrefixRegistry.getRandom(random);
+
+            System.out.println(
+                    "[Reforged][Prefix] Rolled prefix = "
+                            + (prefix == null ? "null" : prefix.getId()
+                    )
+            );
+
+            if (prefix != null) {
+                stack.set(RarityComponents.PREFIX, prefix.getId()
+                );
+                System.out.println(
+                        "[Reforged][Prefix] Applied prefix " + prefix.getId()
+
+                );
+            }
+        }
     }
 
+    public static int getPrefixDamagePct(ItemStack stack) {
+        if (!stack.contains(RarityComponents.PREFIX)) return 0;
+
+        String prefixId = stack.get(RarityComponents.PREFIX);
+        if (prefixId == null) return 0;
+
+        PrefixDefinition def = PrefixRegistry.get(prefixId);
+        if (def == null) return 0;
+
+        return def.damagePct();
+    }
 
 
     public static Rarity getRarity(ItemStack stack) {

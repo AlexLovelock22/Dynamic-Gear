@@ -11,6 +11,8 @@ public final class RarityComponents {
     public static ComponentType<Integer> MINING_SPEED_PCT;
     public static ComponentType<Integer> MAX_HEALTH;
 
+    public static ComponentType<String> PREFIX;
+
     private RarityComponents() {
     }
 }
