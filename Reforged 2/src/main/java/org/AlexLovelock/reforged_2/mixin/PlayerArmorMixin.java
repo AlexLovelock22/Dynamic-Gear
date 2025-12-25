@@ -1,0 +1,75 @@
+// src/main/java/org/AlexLovelock/reforged_2/mixin/PlayerArmorMixin.java
+package org.AlexLovelock.reforged_2.mixin;
+
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
+import org.AlexLovelock.reforged_2.prefix.PrefixDefinition;
+import org.AlexLovelock.reforged_2.prefix.PrefixRegistry;
+import org.AlexLovelock.reforged_2.rarity.ItemCategory;
+import org.AlexLovelock.reforged_2.rarity.RarityComponents;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(PlayerEntity.class)
+public abstract class PlayerArmorMixin {
+
+    private static final Identifier PREFIX_ARMOR_MODIFIER_ID =
+            Identifier.of("reforged_2", "prefix_armor_bonus");
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void reforged2$applyArmorPrefixBonuses(CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+
+        EntityAttributeInstance armorAttr =
+                player.getAttributeInstance(EntityAttributes.ARMOR);
+
+        if (armorAttr == null) return;
+
+        // Remove existing modifier
+        EntityAttributeModifier existing =
+                armorAttr.getModifier(PREFIX_ARMOR_MODIFIER_ID);
+
+        if (existing != null) {
+            armorAttr.removeModifier(existing);
+        }
+
+        int totalArmorBonus = 0;
+
+        for (EquipmentSlot slot : new EquipmentSlot[]{
+                EquipmentSlot.HEAD,
+                EquipmentSlot.CHEST,
+                EquipmentSlot.LEGS,
+                EquipmentSlot.FEET
+        }) {
+            ItemStack stack = player.getEquippedStack(slot);
+            if (stack.isEmpty()) continue;
+
+            String prefixId = stack.get(RarityComponents.PREFIX);
+            if (prefixId == null) continue;
+
+            PrefixDefinition prefix = PrefixRegistry.get(prefixId);
+            if (prefix == null) continue;
+
+            if (!prefix.appliesTo(ItemCategory.ARMOR)) continue;
+
+            totalArmorBonus += prefix.armorBonus();
+        }
+
+        if (totalArmorBonus == 0) return;
+
+        armorAttr.addPersistentModifier(
+                new EntityAttributeModifier(
+                        PREFIX_ARMOR_MODIFIER_ID,
+                        totalArmorBonus,
+                        EntityAttributeModifier.Operation.ADD_VALUE
+                )
+        );
+    }
+}

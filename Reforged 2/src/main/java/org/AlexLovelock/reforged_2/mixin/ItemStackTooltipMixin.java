@@ -9,6 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.AlexLovelock.reforged_2.prefix.PrefixDefinition;
 import org.AlexLovelock.reforged_2.prefix.PrefixRegistry;
+import org.AlexLovelock.reforged_2.rarity.ItemCategory;
 import org.AlexLovelock.reforged_2.rarity.Rarity;
 import org.AlexLovelock.reforged_2.rarity.RarityComponents;
 import org.AlexLovelock.reforged_2.rarity.RarityHelper;
@@ -92,6 +93,37 @@ public abstract class ItemStackTooltipMixin {
                                     prefix.bonusXpChancePct() + "% chance to double XP"
                             ).formatted(Formatting.GRAY)
                     );
+                }
+
+// Armor stats
+                if (prefix.appliesTo(ItemCategory.ARMOR)) {
+
+                    if (prefix.armorBonus() != 0) {
+                        textConsumer.accept(
+                                Text.literal(
+                                        (prefix.armorBonus() > 0 ? "+" : "") +
+                                                prefix.armorBonus() + " Armor"
+                                ).formatted(Formatting.GRAY)
+                        );
+                    }
+
+                    if (prefix.armorToughnessBonus() != 0) {
+                        textConsumer.accept(
+                                Text.literal(
+                                        (prefix.armorToughnessBonus() > 0 ? "+" : "") +
+                                                prefix.armorToughnessBonus() + " Armor Toughness"
+                                ).formatted(Formatting.GRAY)
+                        );
+                    }
+
+                    if (prefix.maxHealthBonus() != 0) {
+                        textConsumer.accept(
+                                Text.literal(
+                                        (prefix.maxHealthBonus() > 0 ? "+" : "") +
+                                                prefix.maxHealthBonus() + " Max Health"
+                                ).formatted(Formatting.GRAY)
+                        );
+                    }
                 }
             }
         }

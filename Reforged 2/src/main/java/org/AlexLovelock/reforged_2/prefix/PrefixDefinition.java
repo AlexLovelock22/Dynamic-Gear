@@ -12,16 +12,18 @@ public final class PrefixDefinition {
     private final String id;
     private final String displayName;
 
-    // What item categories this prefix can apply to
     private final Set<ItemCategory> categories;
 
-    // Prefix stat modifiers
     private final int damagePct;
     private final int attackSpeedPct;
     private final int movementSpeedPct;
     private final int reachBonus;
     private final int critChancePct;
     private final int bonusXpChancePct;
+
+    private final int armorBonus;
+    private final int armorToughnessBonus;
+    private final int maxHealthBonus;
 
     public PrefixDefinition(
             String id,
@@ -32,17 +34,25 @@ public final class PrefixDefinition {
             int movementSpeedPct,
             int reachBonus,
             int critChancePct,
-            int bonusXpChancePct
+            int bonusXpChancePct,
+            int armorBonus,
+            int armorToughnessBonus,
+            int maxHealthBonus
     ) {
         this.id = id;
         this.displayName = displayName;
         this.categories = Collections.unmodifiableSet(EnumSet.copyOf(categories));
+
         this.damagePct = damagePct;
         this.attackSpeedPct = attackSpeedPct;
         this.movementSpeedPct = movementSpeedPct;
         this.reachBonus = reachBonus;
         this.critChancePct = critChancePct;
         this.bonusXpChancePct = bonusXpChancePct;
+
+        this.armorBonus = armorBonus;
+        this.armorToughnessBonus = armorToughnessBonus;
+        this.maxHealthBonus = maxHealthBonus;
     }
 
     public String id() {
@@ -83,5 +93,17 @@ public final class PrefixDefinition {
 
     public int bonusXpChancePct() {
         return bonusXpChancePct;
+    }
+
+    public int armorBonus() {
+        return armorBonus;
+    }
+
+    public int armorToughnessBonus() {
+        return armorToughnessBonus;
+    }
+
+    public int maxHealthBonus() {
+        return maxHealthBonus;
     }
 }

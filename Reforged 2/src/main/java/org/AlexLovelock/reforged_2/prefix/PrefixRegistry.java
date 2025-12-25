@@ -92,13 +92,16 @@ public final class PrefixRegistry {
                 categories.add(ItemCategory.valueOf(el.getAsString()));
             }
         }
-
         int damagePct = getInt(obj, "damagePct", 0);
         int attackSpeedPct = getInt(obj, "attackSpeedPct", 0);
         int movementSpeedPct = getInt(obj, "movementSpeedPct", 0);
         int reachBonus = getInt(obj, "reachBonus", 0);
         int critChancePct = getInt(obj, "critChancePct", 0);
         int bonusXpChancePct = getInt(obj, "bonusXpChancePct", 0);
+
+        int armorBonus = getInt(obj, "armorBonus", 0);
+        int armorToughnessBonus = getInt(obj, "armorToughnessBonus", 0);
+        int maxHealthBonus = getInt(obj, "maxHealthBonus", 0);
 
         return new PrefixDefinition(
                 id,
@@ -109,8 +112,12 @@ public final class PrefixRegistry {
                 movementSpeedPct,
                 reachBonus,
                 critChancePct,
-                bonusXpChancePct
+                bonusXpChancePct,
+                armorBonus,
+                armorToughnessBonus,
+                maxHealthBonus
         );
+
     }
 
     private static String getString(JsonObject obj, String key) {

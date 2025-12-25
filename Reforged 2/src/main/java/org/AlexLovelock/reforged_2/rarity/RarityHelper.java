@@ -96,8 +96,12 @@ public final class RarityHelper {
 
         boolean armor = isArmor(stack);
 
-        if (hasRarity(stack) && !armor) {
-            System.out.println("[Reforged][Rarity] Already has rarity, skipping");
+        boolean hasRarity = hasRarity(stack);
+        boolean hasPrefix = stack.contains(RarityComponents.PREFIX);
+
+// If the item already has both rarity and prefix, do nothing
+        if (hasRarity && hasPrefix) {
+            System.out.println("[Reforged][Rarity] Already fully initialized, skipping");
             return;
         }
 
@@ -127,6 +131,7 @@ public final class RarityHelper {
         );
 
         // ---------------- ARMOR ----------------
+        // ARMOR
         if (armor) {
             int maxHealth =
                     (rarity == Rarity.EPIC || rarity == Rarity.LEGENDARY) ? 1 : 0;
@@ -138,7 +143,7 @@ public final class RarityHelper {
             stack.set(RarityComponents.RARITY, rarity.name());
             stack.set(RarityComponents.DURABILITY_PCT, durabilityPct);
             stack.set(RarityComponents.MAX_HEALTH, maxHealth);
-            return;
+
         }
 
         // ---------------- AXE ----------------
@@ -191,7 +196,9 @@ public final class RarityHelper {
         // ---------------- PREFIX (CATEGORY-AWARE) ----------------
         ItemCategory category;
 
-        if (sword || axe) {
+        if (armor) {
+            category = ItemCategory.ARMOR;
+        } else if (sword || axe) {
             category = ItemCategory.WEAPON;
         } else if (tool) {
             category = ItemCategory.TOOL;
@@ -205,7 +212,9 @@ public final class RarityHelper {
                         .toList();
 
         if (validPrefixes.isEmpty()) {
-            System.out.println("[Reforged][Prefix] No valid prefixes for category " + category);
+            System.out.println(
+                    "[Reforged][Prefix] No valid prefixes for category " + category
+            );
             return;
         }
 
@@ -218,6 +227,7 @@ public final class RarityHelper {
                 "[Reforged][Prefix] Applied prefix " + prefix.id()
                         + " for category " + category
         );
+
     }
 
 
