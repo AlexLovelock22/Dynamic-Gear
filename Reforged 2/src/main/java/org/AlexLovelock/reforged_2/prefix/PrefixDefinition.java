@@ -1,4 +1,3 @@
-// src/main/java/org/AlexLovelock/reforged_2/prefix/PrefixDefinition.java
 package org.AlexLovelock.reforged_2.prefix;
 
 public final class PrefixDefinition {
@@ -6,9 +5,9 @@ public final class PrefixDefinition {
     private final String id;
     private final String displayName;
 
-    // Prefix stat modifiers
     private final int damagePct;
     private final int attackSpeedPct;
+    private final int movementSpeedPct;
     private final int reachBonus;
 
     public PrefixDefinition(
@@ -16,12 +15,14 @@ public final class PrefixDefinition {
             String displayName,
             int damagePct,
             int attackSpeedPct,
+            int movementSpeedPct,
             int reachBonus
     ) {
         this.id = id;
         this.displayName = displayName;
         this.damagePct = damagePct;
         this.attackSpeedPct = attackSpeedPct;
+        this.movementSpeedPct = movementSpeedPct;
         this.reachBonus = reachBonus;
     }
 
@@ -39,6 +40,10 @@ public final class PrefixDefinition {
 
     public int attackSpeedPct() {
         return attackSpeedPct;
+    }
+
+    public int movementSpeedPct() {
+        return movementSpeedPct;
     }
 
     public int reachBonus() {

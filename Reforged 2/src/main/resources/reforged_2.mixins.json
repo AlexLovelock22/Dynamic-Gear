@@ -14,7 +14,8 @@
     "ArmorHealthAttributeMixin",
     "ItemStackNameMixin",
     "PlayerAttackSpeedMixin",
-    "PlayerReachMixin"
+    "PlayerReachMixin",
+    "PlayerMovementSpeedMixin"
   ],
   "injectors": {
     "defaultRequire": 1

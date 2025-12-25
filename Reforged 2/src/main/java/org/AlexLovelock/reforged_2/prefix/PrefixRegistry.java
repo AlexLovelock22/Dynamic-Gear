@@ -83,6 +83,7 @@ public final class PrefixRegistry {
         int damagePct = getInt(obj, "damagePct", 0);
         int attackSpeedPct = getInt(obj, "attackSpeedPct", 0);
         int reachBonus = getInt(obj, "reachBonus", 0);
+        int movementSpeedPct = getInt(obj, "movementSpeedPct", 0);
 
         if (id == null || id.isBlank()) return null;
         if (displayName == null || displayName.isBlank()) {
@@ -94,6 +95,7 @@ public final class PrefixRegistry {
                 displayName,
                 damagePct,
                 attackSpeedPct,
+                movementSpeedPct,
                 reachBonus
         );
     }
