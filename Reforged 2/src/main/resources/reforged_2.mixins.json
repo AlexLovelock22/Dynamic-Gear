@@ -16,7 +16,8 @@
     "PlayerAttackSpeedMixin",
     "PlayerReachMixin",
     "PlayerMovementSpeedMixin",
-    "PlayerBlockReachMixin"
+    "PlayerBlockReachMixin",
+    "BlockXpMixin"
   ],
   "injectors": {
     "defaultRequire": 1

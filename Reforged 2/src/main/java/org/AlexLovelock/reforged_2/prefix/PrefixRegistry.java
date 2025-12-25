@@ -98,6 +98,7 @@ public final class PrefixRegistry {
         int movementSpeedPct = getInt(obj, "movementSpeedPct", 0);
         int reachBonus = getInt(obj, "reachBonus", 0);
         int critChancePct = getInt(obj, "critChancePct", 0);
+        int bonusXpChancePct = getInt(obj, "bonusXpChancePct", 0);
 
         return new PrefixDefinition(
                 id,
@@ -107,7 +108,8 @@ public final class PrefixRegistry {
                 attackSpeedPct,
                 movementSpeedPct,
                 reachBonus,
-                critChancePct
+                critChancePct,
+                bonusXpChancePct
         );
     }
 

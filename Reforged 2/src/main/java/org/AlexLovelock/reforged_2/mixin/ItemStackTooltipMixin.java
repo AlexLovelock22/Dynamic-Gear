@@ -85,6 +85,14 @@ public abstract class ItemStackTooltipMixin {
                                     .formatted(Formatting.GRAY)
                     );
                 }
+
+                if (prefix.bonusXpChancePct() != 0) {
+                    textConsumer.accept(
+                            Text.literal(
+                                    prefix.bonusXpChancePct() + "% chance to double XP"
+                            ).formatted(Formatting.GRAY)
+                    );
+                }
             }
         }
 
