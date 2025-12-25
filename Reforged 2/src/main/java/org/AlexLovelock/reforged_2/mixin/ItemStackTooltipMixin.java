@@ -75,6 +75,22 @@ public abstract class ItemStackTooltipMixin {
                     );
                 }
 
+                if (prefix.movementSpeedPct() != 0) {
+                    textConsumer.accept(
+                            Text.literal(formatPct(prefix.movementSpeedPct()) + " Movement Speed")
+                                    .formatted(Formatting.GRAY)
+                    );
+                }
+
+                if (prefix.critChancePct() != 0) {
+                    textConsumer.accept(
+                            Text.literal(formatPct(prefix.critChancePct()) + " Critical Chance")
+                                    .formatted(Formatting.GRAY)
+                    );
+                }
+
+
+
                 // Future-proof: add more here later
                 // reach, speed, movement, crit chance, etc
             }

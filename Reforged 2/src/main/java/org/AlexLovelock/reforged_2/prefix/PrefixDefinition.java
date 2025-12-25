@@ -9,6 +9,7 @@ public final class PrefixDefinition {
     private final int attackSpeedPct;
     private final int movementSpeedPct;
     private final int reachBonus;
+    private final int critChancePct;
 
     public PrefixDefinition(
             String id,
@@ -16,7 +17,8 @@ public final class PrefixDefinition {
             int damagePct,
             int attackSpeedPct,
             int movementSpeedPct,
-            int reachBonus
+            int reachBonus,
+            int critChancePct
     ) {
         this.id = id;
         this.displayName = displayName;
@@ -24,6 +26,7 @@ public final class PrefixDefinition {
         this.attackSpeedPct = attackSpeedPct;
         this.movementSpeedPct = movementSpeedPct;
         this.reachBonus = reachBonus;
+        this.critChancePct = critChancePct;
     }
 
     public String id() {
@@ -32,6 +35,10 @@ public final class PrefixDefinition {
 
     public String displayName() {
         return displayName;
+    }
+
+    public int critChancePct() {
+        return critChancePct;
     }
 
     public int damagePct() {

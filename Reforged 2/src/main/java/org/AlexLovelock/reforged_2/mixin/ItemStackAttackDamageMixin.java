@@ -26,31 +26,35 @@ public abstract class ItemStackAttackDamageMixin {
             return amount;
         }
 
-        if (source.getAttacker() instanceof LivingEntity attacker) {
-            ItemStack stack = attacker.getMainHandStack();
-
-            if (!stack.isEmpty()) {
-
-                int rarityPct = RarityHelper.getDamageRollPct(stack);
-                int prefixPct = RarityHelper.getPrefixDamagePct(stack);
-
-                int totalPct = rarityPct + prefixPct;
-
-                float multiplier = 1.0f + (totalPct / 100.0f);
-                float newAmount = amount * multiplier;
-
-                System.out.println(
-                        "[Reforged][Damage] base=" + amount +
-                                " rarity=" + rarityPct +
-                                "% prefix=" + prefixPct +
-                                "% total=" + totalPct +
-                                "% final=" + newAmount
-                );
-
-                return newAmount;
-            }
+        if (!(source.getAttacker() instanceof LivingEntity attacker)) {
+            return amount;
         }
 
-        return amount;
+        ItemStack stack = attacker.getMainHandStack();
+        if (stack.isEmpty()) {
+            return amount;
+        }
+
+        int rarityPct = RarityHelper.getDamageRollPct(stack);
+        int prefixPct = RarityHelper.getPrefixDamagePct(stack);
+
+        int totalPct = rarityPct + prefixPct;
+
+        if (totalPct == 0) {
+            return amount;
+        }
+
+        float multiplier = 1.0f + (totalPct / 100.0f);
+        float newAmount = amount * multiplier;
+
+        System.out.println(
+                "[Reforged][Damage] base=" + amount +
+                        " rarity=" + rarityPct +
+                        "% prefix=" + prefixPct +
+                        "% total=" + totalPct +
+                        "% final=" + newAmount
+        );
+
+        return newAmount;
     }
 }
