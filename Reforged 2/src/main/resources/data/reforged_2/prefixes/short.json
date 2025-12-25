@@ -1,5 +1,6 @@
 {
   "id": "short",
   "displayName": "Short",
+  "categories": ["WEAPON", "TOOL"],
   "reachBonus": -1.0
 }

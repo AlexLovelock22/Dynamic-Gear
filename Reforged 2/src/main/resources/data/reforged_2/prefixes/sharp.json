@@ -1,6 +1,6 @@
 {
   "id": "sharp",
   "displayName": "Sharp",
-  "applies_to": ["sword", "axe_weapon"],
+  "categories": ["WEAPON"],
   "damagePct": 8
 }

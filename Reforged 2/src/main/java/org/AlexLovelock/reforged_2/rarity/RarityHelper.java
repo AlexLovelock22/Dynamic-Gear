@@ -5,6 +5,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.math.random.Random;
 import org.AlexLovelock.reforged_2.prefix.PrefixDefinition;
 import org.AlexLovelock.reforged_2.prefix.PrefixRegistry;
+import java.util.List;
 
 
 public final class RarityHelper {
@@ -90,8 +91,7 @@ public final class RarityHelper {
     public static void assignRarityIfMissing(ItemStack stack, Random random) {
 
         System.out.println(
-                "[Reforged][Rarity] assignRarityIfMissing called for "
-                        + stack.getItem()
+                "[Reforged][Rarity] assignRarityIfMissing called for " + stack.getItem()
         );
 
         boolean armor = isArmor(stack);
@@ -126,7 +126,7 @@ public final class RarityHelper {
                 random
         );
 
-        // ARMOR
+        // ---------------- ARMOR ----------------
         if (armor) {
             int maxHealth =
                     (rarity == Rarity.EPIC || rarity == Rarity.LEGENDARY) ? 1 : 0;
@@ -141,9 +141,10 @@ public final class RarityHelper {
             return;
         }
 
-        // AXE (50/50)
+        // ---------------- AXE ----------------
         if (axe) {
             boolean treatAsWeapon = random.nextBoolean();
+
             System.out.println(
                     "[Reforged][Axe] Treat as weapon = " + treatAsWeapon
             );
@@ -164,7 +165,7 @@ public final class RarityHelper {
                 stack.set(RarityComponents.MINING_SPEED_PCT, miningSpeedPct);
             }
         }
-        // SWORD
+        // ---------------- SWORD ----------------
         else if (sword) {
             int damagePct = roll(
                     RarityRanges.getSwordDamageMin(rarity),
@@ -173,7 +174,7 @@ public final class RarityHelper {
             );
             stack.set(RarityComponents.DAMAGE_PCT, damagePct);
         }
-        // TOOL
+        // ---------------- TOOL ----------------
         else if (tool) {
             int miningSpeedPct = roll(
                     RarityRanges.getToolSpeedMin(rarity),
@@ -183,31 +184,42 @@ public final class RarityHelper {
             stack.set(RarityComponents.MINING_SPEED_PCT, miningSpeedPct);
         }
 
-        // COMMON DATA
+        // ---------------- COMMON DATA ----------------
         stack.set(RarityComponents.RARITY, rarity.name());
         stack.set(RarityComponents.DURABILITY_PCT, durabilityPct);
 
-        // PREFIX (weapons only)
-        //if ((sword || axe) && random.nextBoolean()) {
-        if ((sword || axe)) {
-            PrefixDefinition prefix = PrefixRegistry.getRandom(random);
+        // ---------------- PREFIX (CATEGORY-AWARE) ----------------
+        ItemCategory category;
 
-            System.out.println(
-                    "[Reforged][Prefix] Rolled prefix = "
-                            + (prefix == null ? "null" : prefix.id()
-                    )
-            );
-
-            if (prefix != null) {
-                stack.set(RarityComponents.PREFIX, prefix.id()
-                );
-                System.out.println(
-                        "[Reforged][Prefix] Applied prefix " + prefix.id()
-
-                );
-            }
+        if (sword || axe) {
+            category = ItemCategory.WEAPON;
+        } else if (tool) {
+            category = ItemCategory.TOOL;
+        } else {
+            category = ItemCategory.OTHER;
         }
+
+        List<PrefixDefinition> validPrefixes =
+                PrefixRegistry.getAll().stream()
+                        .filter(p -> p.categories().contains(category))
+                        .toList();
+
+        if (validPrefixes.isEmpty()) {
+            System.out.println("[Reforged][Prefix] No valid prefixes for category " + category);
+            return;
+        }
+
+        PrefixDefinition prefix =
+                validPrefixes.get(random.nextInt(validPrefixes.size()));
+
+        stack.set(RarityComponents.PREFIX, prefix.id());
+
+        System.out.println(
+                "[Reforged][Prefix] Applied prefix " + prefix.id()
+                        + " for category " + category
+        );
     }
+
 
     public static int getPrefixDamagePct(ItemStack stack) {
         if (!stack.contains(RarityComponents.PREFIX)) return 0;
@@ -251,6 +263,22 @@ public final class RarityHelper {
         if (roll < 95) return Rarity.RARE;
         if (roll < 99) return Rarity.EPIC;
         return Rarity.LEGENDARY;
+    }
+
+    private static ItemCategory getCategory(ItemStack stack) {
+        if (isSword(stack) || isAxe(stack)) {
+            return ItemCategory.WEAPON;
+        }
+
+        if (isTool(stack)) {
+            return ItemCategory.TOOL;
+        }
+
+        if (isArmor(stack)) {
+            return ItemCategory.ARMOR;
+        }
+
+        return ItemCategory.OTHER;
     }
 
 

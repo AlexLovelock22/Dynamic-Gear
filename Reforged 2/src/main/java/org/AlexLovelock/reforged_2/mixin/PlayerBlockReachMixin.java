@@ -1,0 +1,61 @@
+package org.AlexLovelock.reforged_2.mixin;
+
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
+import org.AlexLovelock.reforged_2.prefix.PrefixDefinition;
+import org.AlexLovelock.reforged_2.prefix.PrefixRegistry;
+import org.AlexLovelock.reforged_2.rarity.RarityComponents;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(PlayerEntity.class)
+public abstract class PlayerBlockReachMixin {
+
+    private static final Identifier PREFIX_BLOCK_REACH_ID =
+            Identifier.of("reforged_2", "prefix_block_reach");
+
+    @Inject(
+            method = "tick",
+            at = @At("TAIL")
+    )
+    private void reforged2$applyPrefixBlockReach(CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+
+        EntityAttributeInstance attr =
+                player.getAttributeInstance(EntityAttributes.BLOCK_INTERACTION_RANGE);
+
+        if (attr == null) return;
+
+        // Remove existing modifier
+        EntityAttributeModifier existing = attr.getModifier(PREFIX_BLOCK_REACH_ID);
+        if (existing != null) {
+            attr.removeModifier(existing);
+        }
+
+        ItemStack stack = player.getMainHandStack();
+        if (stack.isEmpty()) return;
+
+        String prefixId = stack.get(RarityComponents.PREFIX);
+        if (prefixId == null) return;
+
+        PrefixDefinition prefix = PrefixRegistry.get(prefixId);
+        if (prefix == null) return;
+
+        int reach = prefix.reachBonus();
+        if (reach == 0) return;
+
+        attr.addPersistentModifier(
+                new EntityAttributeModifier(
+                        PREFIX_BLOCK_REACH_ID,
+                        reach,
+                        EntityAttributeModifier.Operation.ADD_VALUE
+                )
+        );
+    }
+}

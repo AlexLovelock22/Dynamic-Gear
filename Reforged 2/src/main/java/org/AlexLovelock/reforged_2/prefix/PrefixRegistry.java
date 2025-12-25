@@ -6,6 +6,7 @@ import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
+import org.AlexLovelock.reforged_2.rarity.ItemCategory;
 
 import java.io.InputStreamReader;
 import java.util.*;
@@ -80,20 +81,28 @@ public final class PrefixRegistry {
         String id = getString(obj, "id");
         String displayName = getString(obj, "displayName");
 
-        int damagePct = getInt(obj, "damagePct", 0);
-        int attackSpeedPct = getInt(obj, "attackSpeedPct", 0);
-        int reachBonus = getInt(obj, "reachBonus", 0);
-        int movementSpeedPct = getInt(obj, "movementSpeedPct", 0);
-        int critChancePct = getInt(obj, "critChancePct", 0);
-
         if (id == null || id.isBlank()) return null;
         if (displayName == null || displayName.isBlank()) {
             displayName = id;
         }
 
+        Set<ItemCategory> categories = EnumSet.noneOf(ItemCategory.class);
+        if (obj.has("categories")) {
+            for (var el : obj.getAsJsonArray("categories")) {
+                categories.add(ItemCategory.valueOf(el.getAsString()));
+            }
+        }
+
+        int damagePct = getInt(obj, "damagePct", 0);
+        int attackSpeedPct = getInt(obj, "attackSpeedPct", 0);
+        int movementSpeedPct = getInt(obj, "movementSpeedPct", 0);
+        int reachBonus = getInt(obj, "reachBonus", 0);
+        int critChancePct = getInt(obj, "critChancePct", 0);
+
         return new PrefixDefinition(
                 id,
                 displayName,
+                categories,
                 damagePct,
                 attackSpeedPct,
                 movementSpeedPct,
@@ -101,7 +110,6 @@ public final class PrefixRegistry {
                 critChancePct
         );
     }
-
 
     private static String getString(JsonObject obj, String key) {
         if (!obj.has(key) || obj.get(key).isJsonNull()) return null;
@@ -111,5 +119,9 @@ public final class PrefixRegistry {
     private static int getInt(JsonObject obj, String key, int fallback) {
         if (!obj.has(key) || obj.get(key).isJsonNull()) return fallback;
         return obj.get(key).getAsInt();
+    }
+
+    public static List<PrefixDefinition> getAll() {
+        return List.copyOf(ALL);
     }
 }

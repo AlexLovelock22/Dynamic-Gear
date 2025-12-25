@@ -1,10 +1,21 @@
+// src/main/java/org/AlexLovelock/reforged_2/prefix/PrefixDefinition.java
 package org.AlexLovelock.reforged_2.prefix;
+
+import org.AlexLovelock.reforged_2.rarity.ItemCategory;
+
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
 
 public final class PrefixDefinition {
 
     private final String id;
     private final String displayName;
 
+    // What item categories this prefix can apply to
+    private final Set<ItemCategory> categories;
+
+    // Prefix stat modifiers
     private final int damagePct;
     private final int attackSpeedPct;
     private final int movementSpeedPct;
@@ -14,6 +25,7 @@ public final class PrefixDefinition {
     public PrefixDefinition(
             String id,
             String displayName,
+            Set<ItemCategory> categories,
             int damagePct,
             int attackSpeedPct,
             int movementSpeedPct,
@@ -22,6 +34,7 @@ public final class PrefixDefinition {
     ) {
         this.id = id;
         this.displayName = displayName;
+        this.categories = Collections.unmodifiableSet(EnumSet.copyOf(categories));
         this.damagePct = damagePct;
         this.attackSpeedPct = attackSpeedPct;
         this.movementSpeedPct = movementSpeedPct;
@@ -37,8 +50,12 @@ public final class PrefixDefinition {
         return displayName;
     }
 
-    public int critChancePct() {
-        return critChancePct;
+    public Set<ItemCategory> categories() {
+        return categories;
+    }
+
+    public boolean appliesTo(ItemCategory category) {
+        return categories.contains(category);
     }
 
     public int damagePct() {
@@ -55,5 +72,9 @@ public final class PrefixDefinition {
 
     public int reachBonus() {
         return reachBonus;
+    }
+
+    public int critChancePct() {
+        return critChancePct;
     }
 }

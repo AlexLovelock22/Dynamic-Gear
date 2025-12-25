@@ -49,7 +49,6 @@ public abstract class ItemStackTooltipMixin {
                                 .formatted(Formatting.GOLD)
                 );
 
-                // Prefix effects (JSON-driven)
                 if (prefix.damagePct() != 0) {
                     textConsumer.accept(
                             Text.literal(formatPct(prefix.damagePct()) + " Damage")
@@ -64,13 +63,11 @@ public abstract class ItemStackTooltipMixin {
                     );
                 }
 
-                // Reach modifier
                 if (prefix.reachBonus() != 0) {
                     int reach = prefix.reachBonus();
-
                     textConsumer.accept(
                             Text.literal(
-                                    (reach > 0 ? "+" : "") + reach + " Attack Reach"
+                                    (reach > 0 ? "+" : "") + reach + " Reach"
                             ).formatted(Formatting.GRAY)
                     );
                 }
@@ -88,11 +85,6 @@ public abstract class ItemStackTooltipMixin {
                                     .formatted(Formatting.GRAY)
                     );
                 }
-
-
-
-                // Future-proof: add more here later
-                // reach, speed, movement, crit chance, etc
             }
         }
 

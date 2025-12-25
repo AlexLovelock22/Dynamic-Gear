@@ -15,7 +15,8 @@
     "ItemStackNameMixin",
     "PlayerAttackSpeedMixin",
     "PlayerReachMixin",
-    "PlayerMovementSpeedMixin"
+    "PlayerMovementSpeedMixin",
+    "PlayerBlockReachMixin"
   ],
   "injectors": {
     "defaultRequire": 1
