@@ -9,17 +9,20 @@ public final class PrefixDefinition {
     // Prefix stat modifiers
     private final int damagePct;
     private final int attackSpeedPct;
+    private final int reachBonus;
 
     public PrefixDefinition(
             String id,
             String displayName,
             int damagePct,
-            int attackSpeedPct
+            int attackSpeedPct,
+            int reachBonus
     ) {
         this.id = id;
         this.displayName = displayName;
         this.damagePct = damagePct;
         this.attackSpeedPct = attackSpeedPct;
+        this.reachBonus = reachBonus;
     }
 
     public String id() {
@@ -36,5 +39,9 @@ public final class PrefixDefinition {
 
     public int attackSpeedPct() {
         return attackSpeedPct;
+    }
+
+    public int reachBonus() {
+        return reachBonus;
     }
 }

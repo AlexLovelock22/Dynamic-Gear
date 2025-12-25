@@ -64,6 +64,17 @@ public abstract class ItemStackTooltipMixin {
                     );
                 }
 
+                // Reach modifier
+                if (prefix.reachBonus() != 0) {
+                    int reach = prefix.reachBonus();
+
+                    textConsumer.accept(
+                            Text.literal(
+                                    (reach > 0 ? "+" : "") + reach + " Attack Reach"
+                            ).formatted(Formatting.GRAY)
+                    );
+                }
+
                 // Future-proof: add more here later
                 // reach, speed, movement, crit chance, etc
             }

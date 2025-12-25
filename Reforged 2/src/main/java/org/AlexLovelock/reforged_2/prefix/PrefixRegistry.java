@@ -79,8 +79,11 @@ public final class PrefixRegistry {
 
         String id = getString(obj, "id");
         String displayName = getString(obj, "displayName");
+
         int damagePct = getInt(obj, "damagePct", 0);
         int attackSpeedPct = getInt(obj, "attackSpeedPct", 0);
+        int reachBonus = getInt(obj, "reachBonus", 0);
+
         if (id == null || id.isBlank()) return null;
         if (displayName == null || displayName.isBlank()) {
             displayName = id;
@@ -90,9 +93,11 @@ public final class PrefixRegistry {
                 id,
                 displayName,
                 damagePct,
-                attackSpeedPct
+                attackSpeedPct,
+                reachBonus
         );
     }
+
 
     private static String getString(JsonObject obj, String key) {
         if (!obj.has(key) || obj.get(key).isJsonNull()) return null;

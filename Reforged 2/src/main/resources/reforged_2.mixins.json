@@ -13,7 +13,8 @@
     "PlayerMiningSpeedMixin",
     "ArmorHealthAttributeMixin",
     "ItemStackNameMixin",
-    "PlayerAttackSpeedMixin"
+    "PlayerAttackSpeedMixin",
+    "PlayerReachMixin"
   ],
   "injectors": {
     "defaultRequire": 1
