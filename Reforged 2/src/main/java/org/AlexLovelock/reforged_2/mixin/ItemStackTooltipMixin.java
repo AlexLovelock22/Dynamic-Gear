@@ -57,6 +57,13 @@ public abstract class ItemStackTooltipMixin {
                     );
                 }
 
+                if (prefix.attackSpeedPct() != 0) {
+                    textConsumer.accept(
+                            Text.literal(formatPct(prefix.attackSpeedPct()) + " Attack Speed")
+                                    .formatted(Formatting.GRAY)
+                    );
+                }
+
                 // Future-proof: add more here later
                 // reach, speed, movement, crit chance, etc
             }

@@ -1,0 +1,6 @@
+{
+  "id": "dull",
+  "displayName": "Dull",
+  "applies_to": ["sword", "axe_weapon"],
+  "damagePct": -8
+}

@@ -2,5 +2,5 @@
   "id": "sharp",
   "displayName": "Sharp",
   "applies_to": ["sword", "axe_weapon"],
-  "damagePct": 80
+  "damagePct": 8
 }

@@ -1,0 +1,6 @@
+{
+  "id": "light",
+  "displayName": "Light",
+  "damagePct": -5,
+  "attackSpeedPct": 20
+}

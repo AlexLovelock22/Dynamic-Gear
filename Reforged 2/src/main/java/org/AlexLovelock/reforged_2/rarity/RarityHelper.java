@@ -188,21 +188,21 @@ public final class RarityHelper {
         stack.set(RarityComponents.DURABILITY_PCT, durabilityPct);
 
         // PREFIX (weapons only)
-        if ((sword || axe) && random.nextBoolean()) {
-
+        //if ((sword || axe) && random.nextBoolean()) {
+        if ((sword || axe)) {
             PrefixDefinition prefix = PrefixRegistry.getRandom(random);
 
             System.out.println(
                     "[Reforged][Prefix] Rolled prefix = "
-                            + (prefix == null ? "null" : prefix.getId()
+                            + (prefix == null ? "null" : prefix.id()
                     )
             );
 
             if (prefix != null) {
-                stack.set(RarityComponents.PREFIX, prefix.getId()
+                stack.set(RarityComponents.PREFIX, prefix.id()
                 );
                 System.out.println(
-                        "[Reforged][Prefix] Applied prefix " + prefix.getId()
+                        "[Reforged][Prefix] Applied prefix " + prefix.id()
 
                 );
             }

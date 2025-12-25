@@ -1,0 +1,6 @@
+{
+  "id": "heavy",
+  "displayName": "Heavy",
+  "damagePct": 5,
+  "attackSpeedPct": -20
+}
