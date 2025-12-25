@@ -1,0 +1,8 @@
+{
+  "id": "reinforced",
+  "displayName": "Reinforced",
+  "categories": ["ARMOR"],
+  "armorBonus": 0,
+  "armorToughnessBonus": 2,
+  "maxHealthBonus": 0
+}
