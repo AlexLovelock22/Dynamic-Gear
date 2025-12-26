@@ -1,0 +1,7 @@
+{
+  "id": "weighted",
+  "displayName": "Weighted",
+  "categories": ["ARMOR"],
+  "armorBonus": 2,
+  "maxHealthBonus": -1
+}
