@@ -3,9 +3,12 @@ package org.AlexLovelock.reforged_2.rarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.random.Random;
+import org.AlexLovelock.reforged_2.Reforged_2;
 import org.AlexLovelock.reforged_2.prefix.PrefixDefinition;
 import org.AlexLovelock.reforged_2.prefix.PrefixRegistry;
 import java.util.List;
+
+
 
 
 public final class RarityHelper {
@@ -229,6 +232,76 @@ public final class RarityHelper {
         );
 
     }
+
+    public static void rerollPrefix(ItemStack stack) {
+        System.out.println("[Reforged] rerollPrefix called");
+        System.out.println("[Reforged] Stack before: " + stack);
+
+        // Remove existing prefix
+        if (stack.contains(RarityComponents.PREFIX)) {
+            System.out.println("[Reforged] Removing existing prefix");
+            stack.remove(RarityComponents.PREFIX);
+        } else {
+            System.out.println("[Reforged] No existing prefix");
+        }
+
+        boolean armor = isArmor(stack);
+        boolean sword = isSword(stack);
+        boolean axe = isAxe(stack);
+        boolean tool = isTool(stack);
+
+        System.out.println(
+                "[Reforged] Flags -> armor=" + armor +
+                        ", sword=" + sword +
+                        ", axe=" + axe +
+                        ", tool=" + tool
+        );
+
+        applyRandomPrefix(
+                stack,
+                armor,
+                sword,
+                axe,
+                tool,
+                net.minecraft.util.math.random.Random.create()
+        );
+
+        System.out.println("[Reforged] Stack after: " + stack);
+    }
+
+
+    private static void applyRandomPrefix(ItemStack stack, boolean armor, boolean sword, boolean axe, boolean tool, Random random) {
+        ItemCategory category;
+
+        if (armor) {
+            category = ItemCategory.ARMOR;
+        } else if (sword || axe) {
+            category = ItemCategory.WEAPON;
+        } else if (tool) {
+            category = ItemCategory.TOOL;
+        } else {
+            category = ItemCategory.OTHER;
+        }
+
+        List<PrefixDefinition> validPrefixes =
+                PrefixRegistry.getAll().stream()
+                        .filter(p -> p.categories().contains(category))
+                        .toList();
+
+        if (validPrefixes.isEmpty()) {
+            return;
+        }
+
+        PrefixDefinition prefix =
+                validPrefixes.get(random.nextInt(validPrefixes.size()));
+
+        stack.set(RarityComponents.PREFIX, prefix.id());
+    }
+
+
+
+
+
 
 
     public static int getPrefixDamagePct(ItemStack stack) {

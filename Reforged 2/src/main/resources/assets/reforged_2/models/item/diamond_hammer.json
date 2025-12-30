@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "reforged_2:item/diamond_hammer"
+  }
+}

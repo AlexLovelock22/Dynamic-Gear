@@ -18,7 +18,8 @@
     "PlayerMovementSpeedMixin",
     "PlayerBlockReachMixin",
     "BlockXpMixin",
-    "PlayerArmorMixin"
+    "PlayerArmorMixin",
+    "AnvilScreenHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

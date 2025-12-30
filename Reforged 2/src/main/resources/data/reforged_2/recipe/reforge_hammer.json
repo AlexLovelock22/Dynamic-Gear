@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "tools",
+  "group": "reforged",
+
+  "pattern": [
+    "ID ",
+    "SI ",
+    "S  "
+  ],
+
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "D": "minecraft:diamond",
+    "S": "minecraft:stick"
+  },
+
+  "result": {
+    "id": "reforged_2:reforge_hammer",
+    "count": 1
+  }
+}

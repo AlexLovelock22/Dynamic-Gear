@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NN",
+    "SN",
+    "S "
+  ],
+  "key": {
+    "N": "minecraft:netherite_ingot",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "reforged_2:netherite_hammer",
+    "count": 1
+  }
+}

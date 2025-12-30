@@ -1,3 +1,6 @@
 {
-  "item.reforged_2.reforge_hammer": "Reforge Hammer"
+  "item.reforged_2.reforge_hammer": "Reforge Hammer",
+  "item.reforged_2.iron_hammer": "Iron Reforge Hammer",
+  "item.reforged_2.diamond_hammer": "Diamond Reforge Hammer",
+  "item.reforged_2.netherite_hammer": "Netherite Reforge Hammer"
 }

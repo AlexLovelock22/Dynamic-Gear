@@ -19,6 +19,7 @@ public class Reforged_2 implements ModInitializer {
     public void onInitialize() {
         System.out.println("[Reforged] onInitialize START");
 
+
         // Item registration
         System.out.println("[Reforged] Registering items");
         ModItems.registerAll();

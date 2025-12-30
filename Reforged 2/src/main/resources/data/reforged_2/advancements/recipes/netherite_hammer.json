@@ -1,0 +1,16 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["minecraft:netherite_ingot"] }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": ["reforged_2:netherite_hammer"]
+  }
+}
