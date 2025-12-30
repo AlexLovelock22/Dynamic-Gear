@@ -36,11 +36,9 @@ public abstract class AnvilScreenHandlerMixin {
         Slot outputSlot = self.slots.get(2);
 
         ItemStack input = leftSlot.getStack();
-        ItemStack hammer = rightSlot.getStack();
+        ItemStack right = rightSlot.getStack();
 
-        System.out.println("[Reforged] updateResult called");
-
-        // Hard invalid: no item to reforge
+        // No input at all -> hard clear
         if (input.isEmpty()) {
             outputSlot.setStack(ItemStack.EMPTY);
             levelCost.set(0);
@@ -48,21 +46,23 @@ public abstract class AnvilScreenHandlerMixin {
             return;
         }
 
-// Soft invalid: hammer missing or incompatible
-        if (!(hammer.getItem() instanceof ReforgeHammerItem reforgeHammer)
-                || !reforgeHammer.canReforge(input)) {
+        // If NOT a reforge hammer, let vanilla handle it
+        if (!(right.getItem() instanceof ReforgeHammerItem hammer)) {
+            return;
+        }
 
-            // Do NOT clear output here
-            // Just cancel vanilla
+        // Hammer present but cannot reforge -> clear output
+        if (!hammer.canReforge(input)) {
+            outputSlot.setStack(ItemStack.EMPTY);
             levelCost.set(0);
             ci.cancel();
             return;
         }
 
+        // ---- We now fully own this interaction ----
 
         ItemStack result = input.copy();
 
-// Always remove old prefix first
         if (result.contains(RarityComponents.PREFIX)) {
             result.remove(RarityComponents.PREFIX);
         }

@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "org.AlexLovelock.reforged_2.mixin",
   "compatibilityLevel": "JAVA_21",
+
   "mixins": [
     "CraftingResultSlotMixin",
     "ItemStackTooltipMixin",
@@ -21,9 +22,13 @@
     "PlayerArmorMixin",
     "AnvilScreenHandlerMixin"
   ],
+
+
+
   "injectors": {
     "defaultRequire": 1
   },
+
   "overwrites": {
     "requireAnnotations": true
   }

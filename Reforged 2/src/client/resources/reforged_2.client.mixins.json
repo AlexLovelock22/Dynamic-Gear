@@ -3,11 +3,15 @@
   "minVersion": "0.8",
   "package": "org.AlexLovelock.reforged_2.mixin.client",
   "compatibilityLevel": "JAVA_21",
+
   "client": [
+    "ScreenTooltipMixin"
   ],
+
   "injectors": {
     "defaultRequire": 1
   },
+
   "overwrites": {
     "requireAnnotations": true
   }
