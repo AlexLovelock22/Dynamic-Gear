@@ -6,9 +6,8 @@
 
   "mixins": [
     "CraftingResultSlotMixin",
-    "ItemStackTooltipMixin",
     "ItemStackDurabilityMixin",
-    "CraftingResultSlotStackCraftMixin",
+    "InventoryRarityTickMixin",
     "ItemStackMaxDurabilityMixin",
     "ItemStackAttackDamageMixin",
     "PlayerMiningSpeedMixin",
@@ -22,7 +21,6 @@
     "PlayerArmorMixin",
     "AnvilScreenHandlerMixin"
   ],
-
 
 
   "injectors": {

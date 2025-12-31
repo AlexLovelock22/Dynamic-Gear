@@ -1,0 +1,6 @@
+{
+  "id": "swift",
+  "displayName": "Swift",
+  "categories": ["WEAPON"],
+  "movementSpeedPct": 10
+}

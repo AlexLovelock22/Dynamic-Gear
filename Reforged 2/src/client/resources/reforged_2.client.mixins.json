@@ -1,11 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "org.AlexLovelock.reforged_2.mixin.client",
+  "package": "org.AlexLovelock.reforged_2.mixin",
   "compatibilityLevel": "JAVA_21",
 
   "client": [
-    "ScreenTooltipMixin"
+    "ScreenTooltipMixin",
+    "ItemStackTooltipMixin"
   ],
 
   "injectors": {

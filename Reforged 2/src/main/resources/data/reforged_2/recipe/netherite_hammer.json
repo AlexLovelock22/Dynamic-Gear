@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "NN",
-    "SN",
-    "S "
+    "DND",
+    " S ",
+    " S "
   ],
   "key": {
     "N": "minecraft:netherite_ingot",
-    "S": "minecraft:stick"
+    "S": "minecraft:stick",
+    "D": "minecraft:diamond"
   },
   "result": {
     "id": "reforged_2:netherite_hammer",

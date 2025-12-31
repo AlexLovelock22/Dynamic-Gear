@@ -1,0 +1,7 @@
+{
+  "id": "balanced",
+  "displayName": "Balanced",
+  "categories": ["ARMOR"],
+  "armorBonus": 1,
+  "armorToughnessBonus": -1
+}

@@ -1,0 +1,7 @@
+{
+  "id": "light",
+  "displayName": "Light",
+  "categories": ["WEAPON"],
+  "damagePct": -5,
+  "attackSpeedPct": 20
+}

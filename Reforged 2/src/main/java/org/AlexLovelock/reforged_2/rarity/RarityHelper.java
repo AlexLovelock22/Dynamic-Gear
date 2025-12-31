@@ -93,9 +93,9 @@ public final class RarityHelper {
 
     public static void assignRarityIfMissing(ItemStack stack, Random random) {
 
-        System.out.println(
-                "[Reforged][Rarity] assignRarityIfMissing called for " + stack.getItem()
-        );
+//        System.out.println(
+//                "[Reforged][Rarity] assignRarityIfMissing called for " + stack.getItem()
+//        );
 
         boolean armor = isArmor(stack);
 
@@ -104,7 +104,7 @@ public final class RarityHelper {
 
 // If the item already has both rarity and prefix, do nothing
         if (hasRarity && hasPrefix) {
-            System.out.println("[Reforged][Rarity] Already fully initialized, skipping");
+            //System.out.println("[Reforged][Rarity] Already fully initialized, skipping");
             return;
         }
 
@@ -112,15 +112,15 @@ public final class RarityHelper {
         boolean axe = isAxe(stack);
         boolean tool = isTool(stack);
 
-        System.out.println(
-                "[Reforged][Rarity] Type check -> sword=" + sword
-                        + " axe=" + axe
-                        + " tool=" + tool
-                        + " armor=" + armor
-        );
+//        System.out.println(
+//                "[Reforged][Rarity] Type check -> sword=" + sword
+//                        + " axe=" + axe
+//                        + " tool=" + tool
+//                        + " armor=" + armor
+//        );
 
         if (!sword && !axe && !tool && !armor) {
-            System.out.println("[Reforged][Rarity] Unsupported item, skipping");
+            //System.out.println("[Reforged][Rarity] Unsupported item, skipping");
             return;
         }
 
@@ -341,10 +341,10 @@ public final class RarityHelper {
     private static Rarity rollRarity(Random random) {
         int roll = random.nextInt(100);
 
-        if (roll < 60) return Rarity.COMMON;
-        if (roll < 85) return Rarity.UNCOMMON;
-        if (roll < 95) return Rarity.RARE;
-        if (roll < 99) return Rarity.EPIC;
+        if (roll < 50) return Rarity.COMMON;
+        if (roll < 78) return Rarity.UNCOMMON;
+        if (roll < 93) return Rarity.RARE;
+        if (roll < 98) return Rarity.EPIC;
         return Rarity.LEGENDARY;
     }
 

@@ -43,7 +43,7 @@ public final class ModItems {
                         ReforgeHammerItem.HammerTier.IRON,
                         new Item.Settings()
                                 .registryKey(IRON_HAMMER_KEY)
-                                .maxDamage(250)
+                                .maxDamage(32)
                 )
         );
 
@@ -54,7 +54,7 @@ public final class ModItems {
                         ReforgeHammerItem.HammerTier.DIAMOND,
                         new Item.Settings()
                                 .registryKey(DIAMOND_HAMMER_KEY)
-                                .maxDamage(500)
+                                .maxDamage(48)
                 )
         );
 
@@ -65,7 +65,7 @@ public final class ModItems {
                         ReforgeHammerItem.HammerTier.NETHERITE,
                         new Item.Settings()
                                 .registryKey(NETHERITE_HAMMER_KEY)
-                                .maxDamage(1000)
+                                .maxDamage(64)
                                 .fireproof()
                 )
         );

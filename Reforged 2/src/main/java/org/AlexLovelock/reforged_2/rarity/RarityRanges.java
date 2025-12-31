@@ -4,20 +4,21 @@ public final class RarityRanges {
 
     private RarityRanges() {
     }
-
+    // Lower Bound for sword max damage
     public static int getSwordDamageMin(Rarity rarity) {
         return switch (rarity) {
-            case COMMON -> -40;
-            case UNCOMMON -> -5;
-            case RARE -> 0;
+            case COMMON -> -10;
+            case UNCOMMON -> 0;
+            case RARE -> 4;
             case EPIC -> 5;
             case LEGENDARY -> 8;
         };
     }
 
+    // Upper Bound for sword max damage
     public static int getSwordDamageMax(Rarity rarity) {
         return switch (rarity) {
-            case COMMON -> 20;
+            case COMMON -> 0;
             case UNCOMMON -> 4;
             case RARE -> 6;
             case EPIC -> 8;
@@ -28,8 +29,8 @@ public final class RarityRanges {
     public static int getSwordDurabilityMin(Rarity rarity) {
         return switch (rarity) {
             case COMMON -> -10;
-            case UNCOMMON -> -5;
-            case RARE -> 0;
+            case UNCOMMON -> 0;
+            case RARE -> 4;
             case EPIC -> 5;
             case LEGENDARY -> 8;
         };
@@ -37,7 +38,7 @@ public final class RarityRanges {
 
     public static int getSwordDurabilityMax(Rarity rarity) {
         return switch (rarity) {
-            case COMMON -> 2;
+            case COMMON -> 0;
             case UNCOMMON -> 4;
             case RARE -> 6;
             case EPIC -> 8;

@@ -1,0 +1,8 @@
+{
+  "id": "brittle",
+  "displayName": "Brittle",
+  "categories": ["ARMOR"],
+  "armorBonus": -1,
+  "armorToughnessBonus": 0,
+  "maxHealthBonus": 0
+}

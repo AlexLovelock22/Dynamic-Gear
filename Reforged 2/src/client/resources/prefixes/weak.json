@@ -1,0 +1,6 @@
+{
+  "id": "weak",
+  "displayName": "Weak",
+  "categories": ["ARMOR"],
+  "maxHealthBonus": -1
+}

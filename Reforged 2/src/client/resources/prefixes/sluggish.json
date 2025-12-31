@@ -1,0 +1,6 @@
+{
+  "id": "sluggish",
+  "displayName": "Sluggish",
+  "categories": ["WEAPON"],
+  "movementSpeedPct": -10
+}

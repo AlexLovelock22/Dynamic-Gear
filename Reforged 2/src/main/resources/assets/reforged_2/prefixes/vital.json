@@ -1,0 +1,6 @@
+{
+  "id": "vital",
+  "displayName": "Vital",
+  "categories": ["ARMOR"],
+  "maxHealthBonus": 1
+}

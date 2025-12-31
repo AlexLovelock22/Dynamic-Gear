@@ -1,3 +1,4 @@
+// src/client/java/org/AlexLovelock/reforged_2/mixin/ItemStackTooltipMixin.java
 package org.AlexLovelock.reforged_2.mixin;
 
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -27,38 +28,38 @@ public abstract class ItemStackTooltipMixin {
             method = "appendTooltip",
             at = @At("TAIL")
     )
-    private void reforged2$appendCustomTooltips(
+    private void reforged2$appendReforgedTooltips(
             Item.TooltipContext context,
             TooltipDisplayComponent display,
             PlayerEntity player,
             TooltipType type,
-            Consumer<Text> textConsumer,
+            Consumer<Text> consumer,
             CallbackInfo ci
     ) {
         ItemStack stack = (ItemStack) (Object) this;
 
-        // ---------- PREFIX TOOLTIP ----------
+        // ---------------- PREFIX ----------------
+
         String prefixId = stack.get(RarityComponents.PREFIX);
         if (prefixId != null) {
             PrefixDefinition prefix = PrefixRegistry.get(prefixId);
             if (prefix != null) {
-                textConsumer.accept(Text.empty());
+                consumer.accept(Text.empty());
 
-                // Prefix name
-                textConsumer.accept(
+                consumer.accept(
                         Text.literal(prefix.displayName())
                                 .formatted(Formatting.GOLD)
                 );
 
                 if (prefix.damagePct() != 0) {
-                    textConsumer.accept(
+                    consumer.accept(
                             Text.literal(formatPct(prefix.damagePct()) + " Damage")
                                     .formatted(Formatting.GRAY)
                     );
                 }
 
                 if (prefix.attackSpeedPct() != 0) {
-                    textConsumer.accept(
+                    consumer.accept(
                             Text.literal(formatPct(prefix.attackSpeedPct()) + " Attack Speed")
                                     .formatted(Formatting.GRAY)
                     );
@@ -66,40 +67,36 @@ public abstract class ItemStackTooltipMixin {
 
                 if (prefix.reachBonus() != 0) {
                     int reach = prefix.reachBonus();
-                    textConsumer.accept(
-                            Text.literal(
-                                    (reach > 0 ? "+" : "") + reach + " Reach"
-                            ).formatted(Formatting.GRAY)
+                    consumer.accept(
+                            Text.literal((reach > 0 ? "+" : "") + reach + " Reach")
+                                    .formatted(Formatting.GRAY)
                     );
                 }
 
                 if (prefix.movementSpeedPct() != 0) {
-                    textConsumer.accept(
+                    consumer.accept(
                             Text.literal(formatPct(prefix.movementSpeedPct()) + " Movement Speed")
                                     .formatted(Formatting.GRAY)
                     );
                 }
 
                 if (prefix.critChancePct() != 0) {
-                    textConsumer.accept(
+                    consumer.accept(
                             Text.literal(formatPct(prefix.critChancePct()) + " Critical Chance")
                                     .formatted(Formatting.GRAY)
                     );
                 }
 
                 if (prefix.bonusXpChancePct() != 0) {
-                    textConsumer.accept(
-                            Text.literal(
-                                    prefix.bonusXpChancePct() + "% chance to double XP"
-                            ).formatted(Formatting.GRAY)
+                    consumer.accept(
+                            Text.literal(prefix.bonusXpChancePct() + "% chance to double XP")
+                                    .formatted(Formatting.GRAY)
                     );
                 }
 
-// Armor stats
                 if (prefix.appliesTo(ItemCategory.ARMOR)) {
-
                     if (prefix.armorBonus() != 0) {
-                        textConsumer.accept(
+                        consumer.accept(
                                 Text.literal(
                                         (prefix.armorBonus() > 0 ? "+" : "") +
                                                 prefix.armorBonus() + " Armor"
@@ -108,7 +105,7 @@ public abstract class ItemStackTooltipMixin {
                     }
 
                     if (prefix.armorToughnessBonus() != 0) {
-                        textConsumer.accept(
+                        consumer.accept(
                                 Text.literal(
                                         (prefix.armorToughnessBonus() > 0 ? "+" : "") +
                                                 prefix.armorToughnessBonus() + " Armor Toughness"
@@ -117,7 +114,7 @@ public abstract class ItemStackTooltipMixin {
                     }
 
                     if (prefix.maxHealthBonus() != 0) {
-                        textConsumer.accept(
+                        consumer.accept(
                                 Text.literal(
                                         (prefix.maxHealthBonus() > 0 ? "+" : "") +
                                                 prefix.maxHealthBonus() + " Max Health"
@@ -128,15 +125,16 @@ public abstract class ItemStackTooltipMixin {
             }
         }
 
-        // ---------- RARITY TOOLTIP ----------
+        // ---------------- RARITY ----------------
+
         if (!RarityHelper.hasRarity(stack)) return;
 
         Rarity rarity = RarityHelper.getRarity(stack);
         if (rarity == null) return;
 
-        textConsumer.accept(Text.empty());
+        consumer.accept(Text.empty());
 
-        textConsumer.accept(
+        consumer.accept(
                 Text.literal("Rarity: " + rarity.getDisplayName())
                         .formatted(rarity.getColor())
         );
@@ -147,25 +145,25 @@ public abstract class ItemStackTooltipMixin {
         Integer damage = stack.get(RarityComponents.DAMAGE_PCT);
         Integer maxHealth = stack.get(RarityComponents.MAX_HEALTH);
 
-        textConsumer.accept(
+        consumer.accept(
                 Text.literal("Durability: " + formatPct(durability))
                         .formatted(Formatting.GRAY)
         );
 
         if (miningSpeed != null) {
-            textConsumer.accept(
+            consumer.accept(
                     Text.literal("Mining Speed: " + formatPct(miningSpeed))
                             .formatted(Formatting.GRAY)
             );
         } else if (damage != null) {
-            textConsumer.accept(
+            consumer.accept(
                     Text.literal("Damage: " + formatPct(damage))
                             .formatted(Formatting.GRAY)
             );
         }
 
         if (maxHealth != null) {
-            textConsumer.accept(
+            consumer.accept(
                     Text.literal("Max Health: +" + maxHealth)
                             .formatted(Formatting.GRAY)
             );

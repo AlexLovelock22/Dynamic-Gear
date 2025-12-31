@@ -1,0 +1,6 @@
+{
+  "id": "large",
+  "displayName": "Large",
+  "categories": ["WEAPON", "TOOL"],
+  "reachBonus": 1.0
+}

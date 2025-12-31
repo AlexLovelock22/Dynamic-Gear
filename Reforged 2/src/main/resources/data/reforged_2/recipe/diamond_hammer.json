@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DD",
-    "SD",
-    "S "
+    "CBC",
+    " S ",
+    " S "
   ],
   "key": {
-    "D": "minecraft:diamond",
-    "S": "minecraft:stick"
+    "C": "minecraft:iron_ingot",
+    "S": "minecraft:stick",
+    "B": "minecraft:diamond_block"
   },
   "result": {
     "id": "reforged_2:diamond_hammer",

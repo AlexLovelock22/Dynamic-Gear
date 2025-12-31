@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "II",
-    "SI",
-    "S "
+    "IBI",
+    " S ",
+    " S "
   ],
   "key": {
     "I": "minecraft:iron_ingot",
-    "S": "minecraft:stick"
+    "S": "minecraft:stick",
+    "B": "minecraft:iron_block"
   },
   "result": {
     "id": "reforged_2:iron_hammer",

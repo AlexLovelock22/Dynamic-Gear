@@ -1,16 +1,14 @@
 {
-  "parent": "minecraft:recipes/root",
   "criteria": {
     "has_diamond": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
-          { "items": ["minecraft:diamond"] }
+          {
+            "items": ["minecraft:diamond"]
+          }
         ]
       }
     }
-  },
-  "rewards": {
-    "recipes": ["reforged_2:diamond_hammer"]
   }
 }

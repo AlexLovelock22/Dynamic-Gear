@@ -1,0 +1,8 @@
+{
+  "id": "sturdy",
+  "displayName": "Sturdy",
+  "categories": ["ARMOR"],
+  "armorBonus": 2,
+  "armorToughnessBonus": 0,
+  "maxHealthBonus": 0
+}
