@@ -39,6 +39,7 @@ public abstract class ItemStackTooltipMixin {
         ItemStack stack = (ItemStack) (Object) this;
 
         // ---------------- PREFIX ----------------
+        int MAXTOOLPROGRESSION = 20000;
 
         String prefixId = stack.get(RarityComponents.PREFIX);
         if (prefixId != null) {
@@ -166,6 +167,29 @@ public abstract class ItemStackTooltipMixin {
             consumer.accept(
                     Text.literal("Max Health: +" + maxHealth)
                             .formatted(Formatting.GRAY)
+            );
+        }
+        Integer progress = stack.get(RarityComponents.RARITY_PROGRESS);
+
+        if (progress != null && MAXTOOLPROGRESSION > 0) {
+
+            float pct = Math.min(1.0f, progress / (float) MAXTOOLPROGRESSION);
+
+            int barWidth = 20; // number of characters
+            int filled = Math.round(barWidth * pct);
+
+            Text bar = Text.literal("")
+                    .append(Text.literal("█".repeat(filled)).formatted(Formatting.GREEN))
+                    .append(Text.literal("░".repeat(barWidth - filled)).formatted(Formatting.DARK_GRAY));
+
+            int percent = Math.round(pct * 100);
+
+            consumer.accept(Text.empty());
+            consumer.accept(
+                    Text.literal("Progress: ")
+                            .formatted(Formatting.GRAY)
+                            .append(bar)
+                            .append(Text.literal(" " + percent + "%").formatted(Formatting.YELLOW))
             );
         }
     }

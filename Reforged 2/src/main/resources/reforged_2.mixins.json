@@ -19,7 +19,8 @@
     "PlayerBlockReachMixin",
     "BlockXpMixin",
     "PlayerArmorMixin",
-    "AnvilScreenHandlerMixin"
+    "AnvilScreenHandlerMixin",
+    "MineProgressionMixin"
   ],
 
 

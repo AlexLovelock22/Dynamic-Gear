@@ -18,10 +18,13 @@ public final class RarityComponents {
     public static ComponentType<String> RARITY;
     public static ComponentType<String> PREFIX;
 
+    public static ComponentType<Integer> RARITY_PCT;
+    public static ComponentType<Integer> RARITY_PROGRESS;
     public static ComponentType<Integer> DAMAGE_PCT;
     public static ComponentType<Integer> DURABILITY_PCT;
     public static ComponentType<Integer> MINING_SPEED_PCT;
     public static ComponentType<Integer> MAX_HEALTH;
+    public static ComponentType<Boolean> IS_AXE_WEAPON;
 
     public static void register() {
         // Strings
@@ -33,6 +36,11 @@ public final class RarityComponents {
         DURABILITY_PCT = register("durability_pct", Codec.INT, PacketCodecs.INTEGER.cast());
         MINING_SPEED_PCT = register("mining_speed_pct", Codec.INT, PacketCodecs.INTEGER.cast());
         MAX_HEALTH = register("max_health", Codec.INT, PacketCodecs.INTEGER.cast());
+        RARITY_PCT = register("rarity_pct", Codec.INT, PacketCodecs.INTEGER.cast());
+        RARITY_PROGRESS = register("rarity_progress", Codec.INT, PacketCodecs.INTEGER.cast());
+        // Bools
+        IS_AXE_WEAPON = register("is_axe_weapon", Codec.BOOL, PacketCodecs.BOOLEAN.cast());
+
     }
 
     private static <T> ComponentType<T> register(

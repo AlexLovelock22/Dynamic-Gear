@@ -26,7 +26,7 @@ public final class RarityRanges {
         };
     }
 
-    public static int getSwordDurabilityMin(Rarity rarity) {
+    public static int getDurabilityMin(Rarity rarity) {
         return switch (rarity) {
             case COMMON -> -10;
             case UNCOMMON -> 0;
@@ -36,7 +36,7 @@ public final class RarityRanges {
         };
     }
 
-    public static int getSwordDurabilityMax(Rarity rarity) {
+    public static int getDurabilityMax(Rarity rarity) {
         return switch (rarity) {
             case COMMON -> 0;
             case UNCOMMON -> 4;
